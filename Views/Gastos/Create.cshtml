@@ -1,0 +1,28 @@
+﻿<h1>Agregar Nuevo Gasto</h1>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label for="EmpleadoID">Empleado:</label>
+        <select id="EmpleadoID" name="EmpleadoID" class="form-control">
+            <option value="">Seleccione un empleado</option>
+            @foreach (var empleado in ViewBag.Empleados)
+            {
+                <option value="@empleado.EmpleadoID">@empleado.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="Monto">Monto:</label>
+        <input type="number" id="Monto" name="Monto" step="0.01" required class="form-control" />
+    </div>
+
+    <div>
+        <label for="Fecha">Fecha:</label>
+        <input type="date" id="Fecha" name="Fecha" required class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

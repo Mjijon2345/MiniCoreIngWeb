@@ -1,0 +1,31 @@
+﻿<h1>Lista de Gastos</h1>
+
+<form method="get">
+    <label>Fecha Inicio:</label>
+    <input type="date" name="fechaInicio" />
+    <label>Fecha Fin:</label>
+    <input type="date" name="fechaFin" />
+    <button type="submit">Filtrar</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Empleado</th>
+            <th>Departamento</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var gasto in Model)
+        {
+            <tr>
+                <td>@gasto.Empleado.Nombre</td>
+                <td>@gasto.Empleado.Departamento.Nombre</td>
+                <td>@gasto.Monto</td>
+                <td>@gasto.Fecha.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

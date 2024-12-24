@@ -1,0 +1,92 @@
+﻿<h1>Gestión de Datos</h1>
+
+<!-- Formulario para filtrar gastos -->
+<h2>Filtrar Gastos por Fecha</h2>
+<form method="get">
+    <label>Fecha Inicio:</label>
+    <input type="date" name="fechaInicio" />
+    <label>Fecha Fin:</label>
+    <input type="date" name="fechaFin" />
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<!-- Tabla para mostrar gastos -->
+<h2>Lista de Gastos</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Empleado</th>
+            <th>Departamento</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var gasto in Model)
+            {
+                <tr>
+                    <td>@gasto.Empleado.Nombre</td>
+                    <td>@gasto.Empleado.Departamento.Nombre</td>
+                    <td>@gasto.Monto</td>
+                    <td>@gasto.Fecha.ToShortDateString()</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<!-- Formulario para agregar un nuevo empleado -->
+<h2>Agregar Nuevo Empleado</h2>
+<form asp-action="CrearEmpleado" method="post">
+    <div>
+        <label>Nombre:</label>
+        <input type="text" name="Nombre" required />
+    </div>
+    <div>
+        <label>Departamento:</label>
+        <select name="DepartamentoID" required>
+            <option value="">Seleccione un departamento</option>
+            @foreach (var departamento in ViewBag.Departamentos)
+            {
+                <option value="@departamento.DepartamentoID">@departamento.Nombre</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar Empleado</button>
+</form>
+
+<!-- Formulario para agregar un nuevo departamento -->
+<h2>Agregar Nuevo Departamento</h2>
+<form asp-action="CrearDepartamento" method="post">
+    <div>
+        <label>Nombre del Departamento:</label>
+        <input type="text" name="Nombre" required />
+    </div>
+    <button type="submit" class="btn btn-success">Guardar Departamento</button>
+</form>
+
+<!-- Formulario para agregar un nuevo gasto -->
+<h2>Agregar Nuevo Gasto</h2>
+<form asp-action="CrearGasto" method="post">
+    <div>
+        <label>Empleado:</label>
+        <select name="EmpleadoID" required>
+            <option value="">Seleccione un empleado</option>
+            @foreach (var empleado in ViewBag.Empleados)
+            {
+                <option value="@empleado.EmpleadoID">@empleado.Nombre (@empleado.Departamento.Nombre)</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label>Monto:</label>
+        <input type="number" name="Monto" step="0.01" required />
+    </div>
+    <div>
+        <label>Fecha:</label>
+        <input type="date" name="Fecha" required />
+    </div>
+    <button type="submit" class="btn btn-success">Guardar Gasto</button>
+</form>
